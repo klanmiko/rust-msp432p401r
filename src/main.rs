@@ -13,9 +13,10 @@ use cortex_m::asm;
 #[entry]
 fn main() -> ! {
     let peripherals = Peripherals::take().unwrap();
-    let dio = &peripherals.DIO;
+    let dio = peripherals.DIO;
     let timer_a0 = &peripherals.TIMER_A0;
-    let wdtctl = &peripherals.WDT_A.wdtctl;
+    let wdt_a = peripherals.WDT_A;
+    let wdtctl = &wdt_a.wdtctl;
     
     wdtctl.write(|w| unsafe { w.wdtpw().bits(0x5A).wdthold().wdthold_1() });
 
